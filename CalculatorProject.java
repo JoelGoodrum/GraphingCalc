@@ -296,7 +296,9 @@ public class CalculatorProject extends Application {
 		
 		//if input is operator
 		if(input.equals("*") || input.equals("/") ||
-		   input.equals("+") || input.equals("-")){
+		   input.equals("+") || input.equals("-") ||
+		   input.equals("sin") || input.equals("cos") ||
+		   input.equals("tan") || input.equals("X")){
 			//add at the end
 			arr.add(input);
 
@@ -316,7 +318,9 @@ public class CalculatorProject extends Application {
 				//is prev variable is operator, add numb
 				String prevVar = arr.get(arr.size() - 1);
 				if(prevVar.equals("*") || prevVar.equals("/") ||
-		  		   prevVar.equals("+") || prevVar.equals("-")){
+				   prevVar.equals("+") || prevVar.equals("-") ||
+				   prevVar.equals("sin") || prevVar.equals("cos") ||
+				   prevVar.equals("tan") || prevVar.equals("X")){
 					arr.add(input);		
 				}
 
@@ -421,6 +425,12 @@ public class CalculatorProject extends Application {
 
 	//solve arithmatic
 	public static String solution(ArrayList<String> arr){
+
+		//solve trig first
+		if(arr.contains("sin") || arr.contains("cos") || arr.contains("tan")){
+			solveTrig(arr);
+			solution(arr);
+		}
 
 		if(arr.size() == 1){
 			return arr.get(0);
@@ -578,6 +588,37 @@ public class CalculatorProject extends Application {
 					arr.set(i, ""+x);
 				}
 			}
+		}
+	}
+
+	//solve trig functions
+	public static void solveTrig(ArrayList<String> arr){
+		if(arr.size() > 1) {
+			if(arr.contains("sin")){
+				int index = arr.indexOf("sin");
+				double var = Double.parseDouble(arr.get(index + 1));
+				double result = Math.sin(var);
+				arr.set(index, result + "");
+				arr.remove(index + 1);
+			}
+
+			if(arr.contains("cos")){
+				int index = arr.indexOf("cos");
+				double var = Double.parseDouble(arr.get(index + 1));
+				double result = Math.cos(var);
+				arr.set(index, result + "");
+				arr.remove(index + 1);
+			}
+
+			if(arr.contains("tan")){
+				int index = arr.indexOf("tan");
+				double var = Double.parseDouble(arr.get(index + 1));
+				double result = Math.tan(var);
+				arr.set(index, result + "");
+				arr.remove(index + 1);
+			}
+
+			
 		}
 	}
 
