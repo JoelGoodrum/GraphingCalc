@@ -536,10 +536,10 @@ public class CalculatorProject extends Application {
 					visuals.getChildren().add(circle);
 				}
 
-				i += 0.01;
+				i += 0.005;
 			}
 		} catch(ArithmeticException e) {
-			i+= 0.01;
+			i+= 0.005;
 		}
 
 	}
