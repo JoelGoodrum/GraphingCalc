@@ -319,31 +319,38 @@ public class CalculatorProject extends Application {
 		//clear visuals
 		visuals.getChildren().clear();
 
+		//backgroudnd
+		Rectangle rect = new Rectangle(0,0,300,300);
+		rect.setFill(Color.WHITE);
+		visuals.getChildren().add(rect);
+
 		//Hline
 		Line Hline = new Line(1,150,299,150);
 		Hline.setStroke(Color.BLACK);
-		Hline.setStrokeWidth(3.0);
+		Hline.setStrokeWidth(2.0);
 
 
 		//Vline	
 		Line Vline = new Line(150,1,150,299);
 		Vline.setStroke(Color.BLACK);
-		Vline.setStrokeWidth(3.0);
-
-		visuals.getChildren().add(Hline);
-		visuals.getChildren().add(Vline);
+		Vline.setStrokeWidth(2.0);
 
 		//Hline markers
 		for(int i = 0; i <= 300; i += 25){
 			Line HlineMarker = new Line (i,0,i,300);
+			HlineMarker.setStroke(Color.GRAY);
 			visuals.getChildren().add(HlineMarker);
 		}
 
 		//Vline markers
 		for(int i = 0; i <= 300; i += 25){
 			Line VlineMarker = new Line (0,i,300,i);
+			VlineMarker.setStroke(Color.GRAY);
 			visuals.getChildren().add(VlineMarker);
 		}
+
+		visuals.getChildren().add(Hline);
+		visuals.getChildren().add(Vline);
 
 	}
 
@@ -524,7 +531,7 @@ public class CalculatorProject extends Application {
 				//end unit conversion
 
 				if(y < 300 && y > 0){
-					Circle circle = new Circle((int)x, (int)y, 1);
+					Circle circle = new Circle((int)x, (int)y, 0.25);
 					circle.setStroke(Color.RED);
 					visuals.getChildren().add(circle);
 				}
