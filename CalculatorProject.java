@@ -74,9 +74,6 @@ public class CalculatorProject extends Application {
 			Line VlineMarker = new Line (0,i,300,i);
 			visuals.getChildren().add(VlineMarker);
 		}
-
-		//call graph function
-		graph(visuals);
 							
 
 		//BTN OBJS1//
@@ -220,7 +217,7 @@ public class CalculatorProject extends Application {
 	        textField.setText(calcText(varList));
 		});
 
-		Button btnClear = new Button("CL");
+		Button btnClear = new Button("C");
 		btnClear.setId("button");
 		btnClear.getStylesheets().add("CalcStyle.css");
 		btnClear.setOnAction(actionEvent -> {
@@ -243,14 +240,14 @@ public class CalculatorProject extends Application {
 
 		//hbox 5
 		HBox hbox5 = new HBox();
-		Button btnEqual = new Button("=");
+		Button btnEqual = new Button("GRAPH");
 		btnEqual.setId("equal_button");
 		btnEqual.getStylesheets().add("CalcStyle.css");
 		btnEqual.setOnAction(actionEvent -> {
 			System.out.println(varList);
 			System.out.println(checkSyntax(varList));
-			final String answer = solution(varList);
-	       	textField.setText(answer);
+			//call graph function
+			graph(varList, visuals);
 	       	System.out.print(varList);
 		});
 
@@ -317,7 +314,7 @@ public class CalculatorProject extends Application {
 
 
 	//display text on calculator
-	public String calcText(ArrayList<String> arr){
+	public static String calcText(ArrayList<String> arr){
 		String text = "";
 		for(int i = 0; i < arr.size(); i++){
 			text+= arr.get(i);
@@ -327,7 +324,7 @@ public class CalculatorProject extends Application {
 	}
 
 	//checkSyntax
-	public boolean checkSyntax(ArrayList<String> arr){
+	public static boolean checkSyntax(ArrayList<String> arr){
 
 		if(arr.size() > 2){
 
@@ -366,7 +363,7 @@ public class CalculatorProject extends Application {
 	}
 
 	//solve arithmatic
-	public String solution(ArrayList<String> arr){
+	public static String solution(ArrayList<String> arr){
 
 		if(arr.size() == 1){
 			return arr.get(0);
@@ -424,7 +421,7 @@ public class CalculatorProject extends Application {
 	}
 
 	//operation method
-	public String operations(String A, String B, String opp){
+	public static String operations(String A, String B, String opp){
 		
 
 		double a = Double.parseDouble(A);
@@ -452,7 +449,7 @@ public class CalculatorProject extends Application {
 	}
 
 	//graph
-	public static void graph(Group visuals){
+	public static void graph(ArrayList<String> arr, Group visuals){
 		//y = x
 
 
@@ -468,13 +465,20 @@ public class CalculatorProject extends Application {
 		//answer = midPoint - answer
 		//if y is negative
 		//answer = midPoint + answer
+
 		double i = -6;
 		try{
 			while(i <= 6){
 
 				double x = i;
-				double y = x/(Math.pow(x,2)); //y is the function
+				ArrayList<String> temp = new ArrayList<String>();
+				temp.addAll(arr);
+				adapt(temp,x);
+				solution(temp);
+				String yString = temp.get(0);
+				double y = Double.parseDouble(yString);
 
+				//visual conversion of units to pixels
 				if(x <= 0){
 					//behind midpoint
 					x = midPoint + (x * pixelPerUnit);
@@ -493,6 +497,7 @@ public class CalculatorProject extends Application {
 					//above the midPoint
 					y = midPoint - (y * pixelPerUnit);
 				}
+				//end unit conversion
 
 				if(y < 301 && y > -1){
 					Circle circle = new Circle((int)x, (int)y, 1);
@@ -506,6 +511,14 @@ public class CalculatorProject extends Application {
 			i+= 0.001;
 		}
 
+	}
+
+	//adapt function, finds X in array and transforms it to for loop val
+	public static void adapt(ArrayList<String> arr, double x){
+		if(arr.contains("X")){
+			int index = arr.indexOf("X");
+			arr.set(index, ""+x);
+		}
 	}
 
 
