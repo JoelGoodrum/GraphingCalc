@@ -13,6 +13,8 @@ import javafx.event.EventHandler;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text; 
+import javafx.geometry.Insets;
 
 import java.util.*;
 import java.io.*;
@@ -35,15 +37,23 @@ public class CalculatorProject extends Application {
 		//Vbox layout
 		VBox vbox = new VBox();
 		vbox.setPrefWidth(300);
+		vbox.setPadding(new Insets(5,5,5,5));
+
+		//y = object
+		Text yEquals = new Text(" y = ");
+		yEquals.setStyle("-fx-font-size:30px;");
+
+		
 
 		//text field obj
 		TextField textField = new TextField();
 
+		HBox hbox = new HBox(yEquals, textField);
+		hbox.setPadding(new Insets(5,5,5,5));
+
+
 		//get CSS
-
-
 		//text field style
-		textField.setPrefHeight(70);
 		textField.setStyle("-fx-font-size:25px");
 
 		//set text to textfield
@@ -234,13 +244,13 @@ public class CalculatorProject extends Application {
 		hbox5.getChildren().addAll(btnEqual);
 
 		//add objects to vbox
-		vbox.getChildren().addAll(visuals,textField,hbox1,hbox2,hbox3,hbox4,hbox5);
+		vbox.getChildren().addAll(visuals,hbox,hbox1,hbox2,hbox3,hbox4,hbox5);
 
 		//set title page
 		primaryStage.setTitle("sample");
 
 		//scene obj
-		Scene scene = new Scene(vbox,300,645);
+		Scene scene = new Scene(vbox,310,655);
 		
 
 		//set scene to stage
@@ -310,13 +320,13 @@ public class CalculatorProject extends Application {
 		visuals.getChildren().clear();
 
 		//Hline
-		Line Hline = new Line(0,150,300,150);
+		Line Hline = new Line(1,150,299,150);
 		Hline.setStroke(Color.BLACK);
 		Hline.setStrokeWidth(3.0);
 
 
 		//Vline	
-		Line Vline = new Line(150,0,150,300);
+		Line Vline = new Line(150,1,150,299);
 		Vline.setStroke(Color.BLACK);
 		Vline.setStrokeWidth(3.0);
 
@@ -480,9 +490,9 @@ public class CalculatorProject extends Application {
 		//if y is negative
 		//answer = midPoint + answer
 
-		double i = -6;
+		double i = -5.96;
 		try{
-			while(i <= 6){
+			while(i <= 5.96){
 
 				double x = i;
 				ArrayList<String> temp = new ArrayList<String>();
@@ -513,16 +523,16 @@ public class CalculatorProject extends Application {
 				}
 				//end unit conversion
 
-				if(y < 301 && y > -1){
+				if(y < 300 && y > 0){
 					Circle circle = new Circle((int)x, (int)y, 1);
 					circle.setStroke(Color.RED);
 					visuals.getChildren().add(circle);
 				}
 
-				i += 0.001;
+				i += 0.01;
 			}
 		} catch(ArithmeticException e) {
-			i+= 0.001;
+			i+= 0.01;
 		}
 
 	}
