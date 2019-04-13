@@ -51,29 +51,8 @@ public class CalculatorProject extends Application {
 
 		//graph calc visual
 
-		//Hline
-		Line Hline = new Line(0,150,300,150);
-		Hline.setStroke(Color.BLACK);
-		Hline.setStrokeWidth(3.0);
-
-
-		//Vline	
-		Line Vline = new Line(150,0,150,300);
-		Vline.setStroke(Color.BLACK);
-		Vline.setStrokeWidth(3.0);
-		Group visuals = new Group(Hline, Vline);
-
-		//Hline markers
-		for(int i = 0; i <= 300; i += 25){
-			Line HlineMarker = new Line (i,0,i,300);
-			visuals.getChildren().add(HlineMarker);
-		}
-
-		//Vline markers
-		for(int i = 0; i <= 300; i += 25){
-			Line VlineMarker = new Line (0,i,300,i);
-			visuals.getChildren().add(VlineMarker);
-		}
+		Group visuals = new Group();
+		clearGraph(visuals);
 							
 
 		//BTN OBJS1//
@@ -222,6 +201,7 @@ public class CalculatorProject extends Application {
 		btnClear.getStylesheets().add("CalcStyle.css");
 		btnClear.setOnAction(actionEvent -> {
 	        varList.removeAll(varList);
+	        clearGraph(visuals);
 	        textField.setText(calcText(varList));
 		});
 
@@ -321,6 +301,40 @@ public class CalculatorProject extends Application {
 		}
 
 		return text;
+	}
+
+	//clear graph data and paint graph canvas
+	public static void clearGraph(Group visuals){
+
+		//clear visuals
+		visuals.getChildren().clear();
+
+		//Hline
+		Line Hline = new Line(0,150,300,150);
+		Hline.setStroke(Color.BLACK);
+		Hline.setStrokeWidth(3.0);
+
+
+		//Vline	
+		Line Vline = new Line(150,0,150,300);
+		Vline.setStroke(Color.BLACK);
+		Vline.setStrokeWidth(3.0);
+
+		visuals.getChildren().add(Hline);
+		visuals.getChildren().add(Vline);
+
+		//Hline markers
+		for(int i = 0; i <= 300; i += 25){
+			Line HlineMarker = new Line (i,0,i,300);
+			visuals.getChildren().add(HlineMarker);
+		}
+
+		//Vline markers
+		for(int i = 0; i <= 300; i += 25){
+			Line VlineMarker = new Line (0,i,300,i);
+			visuals.getChildren().add(VlineMarker);
+		}
+
 	}
 
 	//checkSyntax
@@ -516,8 +530,11 @@ public class CalculatorProject extends Application {
 	//adapt function, finds X in array and transforms it to for loop val
 	public static void adapt(ArrayList<String> arr, double x){
 		if(arr.contains("X")){
-			int index = arr.indexOf("X");
-			arr.set(index, ""+x);
+			for(int i = 0; i < arr.size(); i++){
+				if(arr.get(i).equals("X")){
+					arr.set(i, ""+x);
+				}
+			}
 		}
 	}
 
