@@ -427,7 +427,7 @@ public class CalculatorProject extends Application {
 	public static String solution(ArrayList<String> arr){
 
 		//solve trig first
-		if(arr.contains("sin") || arr.contains("cos") || arr.contains("tan")){
+		if(arr.size() > 1 && (arr.contains("sin") || arr.contains("cos") || arr.contains("tan"))){
 			solveTrig(arr);
 			solution(arr);
 		}
@@ -567,15 +567,15 @@ public class CalculatorProject extends Application {
 				//end unit conversion
 
 				if(y < 300 && y > 0){
-					Circle circle = new Circle((int)x, (int)y, 0.25);
+					Circle circle = new Circle((int)x, (int)y, 0.30);
 					circle.setStroke(Color.RED);
 					visuals.getChildren().add(circle);
 				}
 
-				i += 0.005;
+				i += 0.002;
 			}
 		} catch(ArithmeticException e) {
-			i+= 0.005;
+			i+= 0.002;
 		}
 
 	}
