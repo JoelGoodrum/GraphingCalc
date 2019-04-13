@@ -1,0 +1,24 @@
+#button {
+	-fx-background-color: #55B4B0;
+	-fx-pref-width: 60px;
+	-fx-pref-height: 60px;
+	-fx-font-size: 25px;
+	-fx-border-color: #FFFFFF;
+	  
+}
+
+#equal_button{
+	-fx-background-color: #55B4B0;
+	-fx-pref-width: 300px;
+	-fx-pref-height: 60px;
+	-fx-font-size: 25px;
+	-fx-border-color: #FFFFFF;
+}
+
+#button:hover{
+	-fx-background-color: #E15D44;
+}
+
+#equal_button:hover{
+	-fx-background-color: #E15D44;
+}
