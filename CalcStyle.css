@@ -2,9 +2,16 @@
 	-fx-background-color: #55B4B0;
 	-fx-pref-width: 60px;
 	-fx-pref-height: 60px;
-	-fx-font-size: 25px;
+	-fx-font-size: 22px;
 	-fx-border-color: #FFFFFF;
-	  
+}
+
+#button_trig {
+	-fx-background-color: #55B4B0;
+	-fx-pref-width: 60px;
+	-fx-pref-height: 60px;
+	-fx-font-size: 20px;
+	-fx-border-color: #FFFFFF;
 }
 
 #equal_button{
@@ -18,6 +25,11 @@
 #button:hover{
 	-fx-background-color: #E15D44;
 }
+
+#button_trig:hover{
+	-fx-background-color: #E15D44;
+}
+
 
 #equal_button:hover{
 	-fx-background-color: #E15D44;

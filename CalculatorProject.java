@@ -144,11 +144,21 @@ public class CalculatorProject extends Application {
 	        addVal(varList,"/");
 	       	textField.setText(calcText(varList));
 		});
+
+
+		Button btnSin = new Button("sin");
+		btnSin.setId("button_trig");
+		btnSin.getStylesheets().add("CalcStyle.css");
+		btnSin.setOnAction(actionEvent -> {
+	        addVal(varList,"sin");
+	       	textField.setText(calcText(varList));
+		});
+
 		//END BTN OBJS2//
 
 		//add buttons to hbox2
 		HBox hbox2 = new HBox();
-		hbox2.getChildren().addAll(btn4,btn5,btn6,btnDiv);
+		hbox2.getChildren().addAll(btn4,btn5,btn6,btnDiv,btnSin);
 
 
 		//BTN OBJS3//
@@ -183,11 +193,19 @@ public class CalculatorProject extends Application {
 	        addVal(varList,"+");
 	       	textField.setText(calcText(varList));
 		});
+
+		Button btnCos = new Button("cos");
+		btnCos.setId("button_trig");
+		btnCos.getStylesheets().add("CalcStyle.css");
+		btnCos.setOnAction(actionEvent -> {
+	        addVal(varList,"cos");
+	       	textField.setText(calcText(varList));
+		});
 		//END BTN OBJS3//
 
 		//add buttons to hbox3
 		HBox hbox3 = new HBox();
-		hbox3.getChildren().addAll(btn1,btn2,btn3,btnPlus);
+		hbox3.getChildren().addAll(btn1,btn2,btn3,btnPlus,btnCos);
 
 		//button objs4
 		Button btnDecimal = new Button(".");
@@ -223,10 +241,18 @@ public class CalculatorProject extends Application {
 	        textField.setText(calcText(varList));
 		});
 
+		Button btnTan = new Button("tan");
+		btnTan.setId("button_trig");
+		btnTan.getStylesheets().add("CalcStyle.css");
+		btnTan.setOnAction(actionEvent -> {
+	        addVal(varList,"tan");
+	       	textField.setText(calcText(varList));
+		});
+
 
 		//add buttons to hbox4
 		HBox hbox4 = new HBox();
-		hbox4.getChildren().addAll(btnDecimal,btn0,btnClear,btnMinus);
+		hbox4.getChildren().addAll(btnDecimal,btn0,btnClear,btnMinus,btnTan);
 
 		//hbox 5
 		HBox hbox5 = new HBox();
