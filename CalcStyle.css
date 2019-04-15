@@ -14,6 +14,15 @@
 	-fx-border-color: #FFFFFF;
 }
 
+#button_root {
+	-fx-background-color: #55B4B0;
+	-fx-pref-width: 60px;
+	-fx-pref-height: 60px;
+	-fx-font-size: 14px;
+	-fx-border-color: #FFFFFF;
+}
+
+
 #equal_button{
 	-fx-background-color: #55B4B0;
 	-fx-pref-width: 360px;
@@ -27,6 +36,10 @@
 }
 
 #button_trig:hover{
+	-fx-background-color: #E15D44;
+}
+
+#button_root:hover{
 	-fx-background-color: #E15D44;
 }
 

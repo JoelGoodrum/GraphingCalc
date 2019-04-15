@@ -49,7 +49,7 @@ public class CalculatorProject extends Application {
 		TextField textField = new TextField();
 
 		HBox hbox = new HBox(yEquals, textField);
-		hbox.setPadding(new Insets(5,5,5,5));
+		hbox.setPadding(new Insets(5,0,5,0));
 
 
 		//get CSS
@@ -106,11 +106,12 @@ public class CalculatorProject extends Application {
 	       	textField.setText(calcText(varList));
 		});
 
-		Button btnSq = new Button("root");
-		btnSq.setId("button");
+		Button btnSq = new Button("root()");
+		btnSq.setId("button_root");
 		btnSq.getStylesheets().add("CalcStyle.css");
 		btnSq.setOnAction(actionEvent -> {
-	        addVal(varList,"√");
+	        addVal(varList,"root");
+	        addVal(varList,"(");
 	       	textField.setText(calcText(varList));
 		});
 		//END BTN OBJS//
@@ -471,10 +472,21 @@ public class CalculatorProject extends Application {
 			solution(arr);
 		}
 
+		//solve trig
+		if(arr.contains("root")){
+			root(arr);
+			solution(arr);
+		}
+
 
 		//solve trig first
 		if(arr.size() > 1 && (arr.contains("sin") || arr.contains("cos") || arr.contains("tan"))){
 			solveTrig(arr);
+			solution(arr);
+		}
+
+		if(arr.size() > 1 && arr.contains("root")){
+			root(arr);
 			solution(arr);
 		}
 
@@ -713,6 +725,18 @@ public class CalculatorProject extends Application {
 			}
 
 			
+		}
+	}
+
+	public static void root(ArrayList<String> arr){
+		if(arr.size() > 1) {
+			if(arr.contains("root")){
+				int index = arr.indexOf("root");
+				double var = Double.parseDouble(arr.get(index + 1));
+				double result = Math.sqrt(var);
+				arr.set(index, result + "");
+				arr.remove(index + 1);
+			}
 		}
 	}
 
