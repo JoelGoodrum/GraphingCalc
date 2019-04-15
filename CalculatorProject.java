@@ -280,7 +280,9 @@ public class CalculatorProject extends Application {
 		btnNeg.setId("button");
 		btnNeg.getStylesheets().add("CalcStyle.css");
 		btnNeg.setOnAction(actionEvent -> {
-	        addVal(varList,"(-1)");
+	        addVal(varList,"(");
+	        addVal(varList,"-1");
+	        addVal(varList,")");
 	       	textField.setText(calcText(varList));
 		});
 
@@ -549,20 +551,22 @@ public class CalculatorProject extends Application {
 		for(int i = 0; i < arr.size(); i++){
 			if(arr.get(i).equals("(")){
 				pOpenIndex = i;
+				int j = i;
+				while(arr.get(j) != (")")){
+					j++;
+				}
+				pCloseIndex = j;
 			}
 		}
 
 		//find closed
-		for(int i = arr.size() - 1; i > -1; i--){
-			if(arr.get(i).equals(")")){
-				pCloseIndex = i;
-			}
-		}
+		
 
 		ArrayList<String> temp = new ArrayList<String>();
 		for(int i = pOpenIndex + 1; i < pCloseIndex; i++){
 			temp.add(arr.get(i));
 		}
+
 
 		int tempSize = temp.size() + 1; //this int will be used to remove ( to ) in arr
 		solution(temp);
