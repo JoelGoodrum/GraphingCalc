@@ -16,6 +16,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text; 
 import javafx.geometry.Insets;
 
+
 import java.util.*;
 import java.io.*;
 
@@ -30,6 +31,9 @@ public class CalculatorProject extends Application {
 	//display app
 	@Override
 	public void start(Stage primaryStage) throws Exception{
+
+		//disable keyboard
+		
 
 		//String on calc
 		ArrayList<String> varList = new ArrayList<String>();
@@ -47,6 +51,7 @@ public class CalculatorProject extends Application {
 
 		//text field obj
 		TextField textField = new TextField();
+		textField.setEditable(false);
 
 		HBox hbox = new HBox(yEquals, textField);
 		hbox.setPadding(new Insets(5,0,5,0));
