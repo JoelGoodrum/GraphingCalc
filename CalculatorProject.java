@@ -105,11 +105,19 @@ public class CalculatorProject extends Application {
 	        addVal(varList,"X");
 	       	textField.setText(calcText(varList));
 		});
+
+		Button btnSq = new Button("root");
+		btnSq.setId("button");
+		btnSq.getStylesheets().add("CalcStyle.css");
+		btnSq.setOnAction(actionEvent -> {
+	        addVal(varList,"√");
+	       	textField.setText(calcText(varList));
+		});
 		//END BTN OBJS//
 
 		//add buttons to hbox1
 		HBox hbox1 = new HBox();
-		hbox1.getChildren().addAll(btn7,btn8,btn9,btnMult,btnX);
+		hbox1.getChildren().addAll(btn7,btn8,btn9,btnMult,btnX,btnSq);
 
 		
 		//BTN OBJS2//
@@ -154,11 +162,21 @@ public class CalculatorProject extends Application {
 	       	textField.setText(calcText(varList));
 		});
 
+		Button btnOp = new Button("(");
+		btnOp.setId("button");
+		btnOp.getStylesheets().add("CalcStyle.css");
+		btnOp.setOnAction(actionEvent -> {
+	        addVal(varList,"(");
+	       	textField.setText(calcText(varList));
+		});
+
+
+
 		//END BTN OBJS2//
 
 		//add buttons to hbox2
 		HBox hbox2 = new HBox();
-		hbox2.getChildren().addAll(btn4,btn5,btn6,btnDiv,btnSin);
+		hbox2.getChildren().addAll(btn4,btn5,btn6,btnDiv,btnSin,btnOp);
 
 
 		//BTN OBJS3//
@@ -201,11 +219,20 @@ public class CalculatorProject extends Application {
 	        addVal(varList,"cos");
 	       	textField.setText(calcText(varList));
 		});
+
+		Button btnClo = new Button(")");
+		btnClo.setId("button");
+		btnClo.getStylesheets().add("CalcStyle.css");
+		btnClo.setOnAction(actionEvent -> {
+	        addVal(varList,")");
+	       	textField.setText(calcText(varList));
+		});
+
 		//END BTN OBJS3//
 
 		//add buttons to hbox3
 		HBox hbox3 = new HBox();
-		hbox3.getChildren().addAll(btn1,btn2,btn3,btnPlus,btnCos);
+		hbox3.getChildren().addAll(btn1,btn2,btn3,btnPlus,btnCos,btnClo);
 
 		//button objs4
 		Button btnDecimal = new Button(".");
@@ -249,10 +276,18 @@ public class CalculatorProject extends Application {
 	       	textField.setText(calcText(varList));
 		});
 
+		Button btnNeg = new Button("(-1)");
+		btnNeg.setId("button");
+		btnNeg.getStylesheets().add("CalcStyle.css");
+		btnNeg.setOnAction(actionEvent -> {
+	        addVal(varList,"(-1)");
+	       	textField.setText(calcText(varList));
+		});
+
 
 		//add buttons to hbox4
 		HBox hbox4 = new HBox();
-		hbox4.getChildren().addAll(btnDecimal,btn0,btnClear,btnMinus,btnTan);
+		hbox4.getChildren().addAll(btnDecimal,btn0,btnClear,btnMinus,btnTan,btnNeg);
 
 		//hbox 5
 		HBox hbox5 = new HBox();
@@ -276,7 +311,7 @@ public class CalculatorProject extends Application {
 		primaryStage.setTitle("sample");
 
 		//scene obj
-		Scene scene = new Scene(vbox,310,655);
+		Scene scene = new Scene(vbox,370,655);
 		
 
 		//set scene to stage
@@ -298,7 +333,8 @@ public class CalculatorProject extends Application {
 		if(input.equals("*") || input.equals("/") ||
 		   input.equals("+") || input.equals("-") ||
 		   input.equals("sin") || input.equals("cos") ||
-		   input.equals("tan") || input.equals("X")){
+		   input.equals("tan") || input.equals("X") ||
+		   input.equals("(") || input.equals(")")){
 			//add at the end
 			arr.add(input);
 
@@ -320,7 +356,8 @@ public class CalculatorProject extends Application {
 				if(prevVar.equals("*") || prevVar.equals("/") ||
 				   prevVar.equals("+") || prevVar.equals("-") ||
 				   prevVar.equals("sin") || prevVar.equals("cos") ||
-				   prevVar.equals("tan") || prevVar.equals("X")){
+				   prevVar.equals("tan") || prevVar.equals("X") ||
+				   prevVar.equals("(") || prevVar.equals(")")){
 					arr.add(input);		
 				}
 
@@ -426,6 +463,13 @@ public class CalculatorProject extends Application {
 	//solve arithmatic
 	public static String solution(ArrayList<String> arr){
 
+		//solve parenthesis
+		if(hasPerenthesis(arr) == true){
+			solveParentheses(arr);
+			solution(arr);
+		}
+
+
 		//solve trig first
 		if(arr.size() > 1 && (arr.contains("sin") || arr.contains("cos") || arr.contains("tan"))){
 			solveTrig(arr);
@@ -484,6 +528,52 @@ public class CalculatorProject extends Application {
 			return arr.get(0);
 		}
 		
+
+	}
+
+	//has perenthesis
+	public static boolean hasPerenthesis(ArrayList<String> arr){
+		if(arr.contains("(")){
+			return true;
+		}
+		return false;
+	}
+
+	//solve parenthesis
+	public static void solveParentheses(ArrayList<String> arr){
+		//find parentheses index
+		int pOpenIndex = 0;
+		int pCloseIndex = 0;
+
+		//find open
+		for(int i = 0; i < arr.size(); i++){
+			if(arr.get(i).equals("(")){
+				pOpenIndex = i;
+			}
+		}
+
+		//find closed
+		for(int i = arr.size() - 1; i > -1; i--){
+			if(arr.get(i).equals(")")){
+				pCloseIndex = i;
+			}
+		}
+
+		ArrayList<String> temp = new ArrayList<String>();
+		for(int i = pOpenIndex + 1; i < pCloseIndex; i++){
+			temp.add(arr.get(i));
+		}
+
+		int tempSize = temp.size() + 1; //this int will be used to remove ( to ) in arr
+		solution(temp);
+
+		while(tempSize > 0){
+			arr.remove(pOpenIndex);
+			tempSize--;
+		}
+
+		arr.set(pOpenIndex, temp.get(0));
+
 
 	}
 
