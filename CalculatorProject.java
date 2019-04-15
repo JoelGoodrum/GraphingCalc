@@ -32,9 +32,6 @@ public class CalculatorProject extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception{
 
-		//disable keyboard
-		
-
 		//String on calc
 		ArrayList<String> varList = new ArrayList<String>();
 		
@@ -51,7 +48,7 @@ public class CalculatorProject extends Application {
 
 		//text field obj
 		TextField textField = new TextField();
-		textField.setEditable(false);
+		textField.setEditable(false);             //disable keyboard input
 
 		HBox hbox = new HBox(yEquals, textField);
 		hbox.setPadding(new Insets(5,0,5,0));
@@ -395,31 +392,31 @@ public class CalculatorProject extends Application {
 		visuals.getChildren().clear();
 
 		//backgroudnd
-		Rectangle rect = new Rectangle(0,0,300,300);
+		Rectangle rect = new Rectangle(0,0,360,300);
 		rect.setFill(Color.WHITE);
 		visuals.getChildren().add(rect);
 
 		//Hline
-		Line Hline = new Line(1,150,299,150);
+		Line Hline = new Line(1,180,359,180);
 		Hline.setStroke(Color.BLACK);
 		Hline.setStrokeWidth(2.0);
 
 
 		//Vline	
-		Line Vline = new Line(150,1,150,299);
+		Line Vline = new Line(180,1,180,359);
 		Vline.setStroke(Color.BLACK);
 		Vline.setStrokeWidth(2.0);
 
 		//Hline markers
-		for(int i = 0; i <= 300; i += 25){
-			Line HlineMarker = new Line (i,0,i,300);
+		for(double i = 0; i <= 360; i += 25.71){
+			Line HlineMarker = new Line (i,0,i,360);
 			HlineMarker.setStroke(Color.GRAY);
 			visuals.getChildren().add(HlineMarker);
 		}
 
 		//Vline markers
-		for(int i = 0; i <= 300; i += 25){
-			Line VlineMarker = new Line (0,i,300,i);
+		for(double i = 0; i <= 360; i += 25.71){
+			Line VlineMarker = new Line (0,i,360,i);
 			VlineMarker.setStroke(Color.GRAY);
 			visuals.getChildren().add(VlineMarker);
 		}
@@ -636,17 +633,17 @@ public class CalculatorProject extends Application {
 		//ends at 6
 		//each unit is 25 pixels
 
-		int midPoint = 150;  //half of the number of pixels
-		int pixelPerUnit = 25;
+		int midPoint = 180;  //half of the number of pixels
+		double pixelPerUnit = 25.71;
 
 		//if y is positive
 		//answer = midPoint - answer
 		//if y is negative
 		//answer = midPoint + answer
 
-		double i = -5.96;
+		double i = -6.96;
 		try{
-			while(i <= 5.96){
+			while(i <= 6.96){
 
 				double x = i;
 				ArrayList<String> temp = new ArrayList<String>();
@@ -677,16 +674,16 @@ public class CalculatorProject extends Application {
 				}
 				//end unit conversion
 
-				if(y < 300 && y > 0){
+				if(y < 360 && y > 0){
 					Circle circle = new Circle((int)x, (int)y, 0.30);
 					circle.setStroke(Color.RED);
 					visuals.getChildren().add(circle);
 				}
 
-				i += 0.002;
+				i += 0.001;
 			}
 		} catch(ArithmeticException e) {
-			i+= 0.002;
+			i+= 0.001;
 		}
 
 	}
@@ -729,7 +726,6 @@ public class CalculatorProject extends Application {
 				arr.remove(index + 1);
 			}
 
-			
 		}
 	}
 
@@ -744,9 +740,6 @@ public class CalculatorProject extends Application {
 			}
 		}
 	}
-
-
-
 
 }
 
