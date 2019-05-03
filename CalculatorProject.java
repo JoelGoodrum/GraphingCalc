@@ -15,7 +15,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text; 
 import javafx.geometry.Insets;
-
+//
 
 import java.util.*;
 import java.io.*;
@@ -329,40 +329,57 @@ public class CalculatorProject extends Application {
 
 	//addNumbers properly to calcVar
 	public static void addVal(ArrayList<String> arr, String input){
-		if(arr.size() > 0){
-			if(arr.get(0).equals("Error"))
-			arr.removeAll(arr);
-		}
 		
-		//if input is operator
-		if(input.equals("*") || input.equals("/") ||
-		   input.equals("+") || input.equals("-") ||
-		   input.equals("sin") || input.equals("cos") ||
-		   input.equals("tan") || input.equals("X") ||
-		   input.equals("(") || input.equals(")")){
-			//add at the end
+		//if array is empty, add input
+		if(arr.size() == 0){
 			arr.add(input);
-
 		}
 
-		//else
-		else{
+		//if input is an x, imply * if numb was prev term
+		else if(input.equals("X")){
+			String prevVar = arr.get(arr.size() - 1);
 
-			//add numb to last val
-			if(arr.size() == 0){
-				//add numb
-				arr.add(input);
+			if(prevVar.equals("*") || prevVar.equals("/") ||
+			   prevVar.equals("+") || prevVar.equals("-") ||
+			   prevVar.equals("sin") || prevVar.equals("cos") ||
+			   prevVar.equals("tan") || input.equals("")){
+			  
+				arr.add(input);		
 			}
 
 			else{
+				arr.add("");
+				arr.add(input);
+			}
+		}
 
-				//is prev variable is operator, add numb
+
+		//else input must be a number or operator
+		else{
+
+			//if input is operator
+			if(input.equals("*") || input.equals("/") ||
+			   input.equals("+") || input.equals("-") ||
+			   input.equals("sin") || input.equals("cos") ||
+			   input.equals("tan") || input.equals("") ||
+			   input.equals("(") || input.equals(")")){
+				//add at the end
+				arr.add(input);
+
+			}
+
+			else{ //input is a number
+
+				
 				String prevVar = arr.get(arr.size() - 1);
+				
+				//if prev var is a operator, then add number
 				if(prevVar.equals("*") || prevVar.equals("/") ||
 				   prevVar.equals("+") || prevVar.equals("-") ||
 				   prevVar.equals("sin") || prevVar.equals("cos") ||
 				   prevVar.equals("tan") || prevVar.equals("X") ||
-				   prevVar.equals("(") || prevVar.equals(")")){
+				   prevVar.equals("(") || prevVar.equals(")") ||
+				   prevVar.equals("")){
 					arr.add(input);		
 				}
 
@@ -392,7 +409,7 @@ public class CalculatorProject extends Application {
 		visuals.getChildren().clear();
 
 		//backgroudnd
-		Rectangle rect = new Rectangle(0,0,360,300);
+		Rectangle rect = new Rectangle(0,0,360,360);
 		rect.setFill(Color.WHITE);
 		visuals.getChildren().add(rect);
 
@@ -438,7 +455,8 @@ public class CalculatorProject extends Application {
 			if(firstVar.equals("*") || firstVar.equals("/") ||
 			   firstVar.equals("+") || firstVar.equals("-") ||
 			   lastVar.equals("*") || lastVar.equals("/") ||
-			   lastVar.equals("+") || lastVar.equals("-")){
+			   lastVar.equals("+") || lastVar.equals("-")||
+			   lastVar.equals("")){
 				return false;
 			
 			}
@@ -498,7 +516,15 @@ public class CalculatorProject extends Application {
 
 		else if(checkSyntax(arr) == true){ //compute
 
-			if(arr.contains("*")){
+			if(arr.contains("")){
+				int i = arr.indexOf("");
+				arr.set(i, operations(arr.get(i-1), arr.get(i + 1), arr.get(i)));
+				arr.remove(i+1);
+				arr.remove(i-1);
+				return solution(arr);
+			}
+
+			else if(arr.contains("*")){
 				int i = arr.indexOf("*");
 				arr.set(i, operations(arr.get(i-1), arr.get(i + 1), arr.get(i)));
 				arr.remove(i+1);
@@ -602,7 +628,7 @@ public class CalculatorProject extends Application {
 		double a = Double.parseDouble(A);
 		double b = Double.parseDouble(B);
 
-		if(opp.equals("*")){
+		if(opp.equals("*") || opp.equals("")){
 			return a * b + "";
 		}
 
@@ -641,9 +667,9 @@ public class CalculatorProject extends Application {
 		//if y is negative
 		//answer = midPoint + answer
 
-		double i = -6.96;
+		double i = -6.98;
 		try{
-			while(i <= 6.96){
+			while(i <= 6.98){
 
 				double x = i;
 				ArrayList<String> temp = new ArrayList<String>();
